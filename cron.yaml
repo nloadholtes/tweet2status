@@ -1,0 +1,5 @@
+cron:
+
+- description: every 1 hour
+  url: /tasks/check
+  schedule: every hour
