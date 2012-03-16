@@ -1,11 +1,10 @@
 application: tweet2status
 version: 1
 runtime: python27
+threadsafe: true
 api_version: 1
 
 handlers:
-- url: /
-  script: helloworld.py
 
 - url: /tasks/check
   script: tweet2status.py
