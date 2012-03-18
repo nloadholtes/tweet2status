@@ -10,7 +10,6 @@ import json
 import ConfigParser
 import codecs
 from xmpp import *
-import logging
 import warnings
 
 warnings.filterwarnings("ignore") # silence DeprecationWarning messages
@@ -32,10 +31,7 @@ def updateStatus(config, newstatus):
     ]))
     cl.disconnect()
 
-def main(configfilename='config.cfg'):
-    config = ConfigParser.RawConfigParser()
-    config.readfp(codecs.open(configfilename, "r", "utf8"))
-
+def getTweet(config):
     url = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name='
     url += config.get('twitter', 'username')
     req = urllib2.Request(url)
@@ -48,6 +44,13 @@ def main(configfilename='config.cfg'):
             continue
         status = tweet['text']
         break
+    return status
+
+
+def main(configfilename='config.cfg'):
+    config = ConfigParser.RawConfigParser()
+    config.readfp(codecs.open(configfilename, "r", "utf8"))
+    status = getTweet(config)
     updateStatus(config, status)
 
 if __name__ == "__main__":
