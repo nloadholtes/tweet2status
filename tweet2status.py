@@ -20,14 +20,14 @@ def updateStatus(config, newstatus):
 
     # T'would be better if this was oauth.
     #
-    # if not cl.connect(server=('talk.google.com',5222)):
-    #     raise IOError('Can not connect to server.')
+    if not cl.connect(server=('talk.google.com',5222)):
+        raise IOError('Can not connect to server.')
 
-    # if not cl.auth(config.get('gtalk', 'gtalkname'), config.get('gtalk', 'gtalkpassword'), 'gmail.com'):
-    #     raise IOError('Can not auth with server.')
+    if not cl.auth(config.get('gtalk', 'gtalkname'), config.get('gtalk', 'gtalkpassword'), 'gmail.com'):
+        raise IOError('Can not auth with server.')
     cl.send(Iq('set','google:shared-status', payload=[
-    Node('show',payload=["default"]),
-    Node('status',payload=[newstatus])
+        Node('show',payload=["default"]),
+        Node('status',payload=[newstatus])
     ]))
     cl.disconnect()
 
